@@ -1,5 +1,5 @@
 {
-    "name": "InputActions",
+    "name": "ControlsMap",
     "maps": [
         {
             "name": "Gameplay",
@@ -9,6 +9,24 @@
                     "name": "Movement",
                     "type": "Value",
                     "id": "f370e64f-1567-436d-b98b-6e5df6d83a65",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "AimStick",
+                    "type": "Value",
+                    "id": "ac696bbe-d9ff-43f7-b2b2-471b323c0b0e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "AimMouse",
+                    "type": "Value",
+                    "id": "bd12f6b2-90c6-4537-9158-ccd3d34047e2",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -81,6 +99,28 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "0212ccc4-5770-48e9-a6fa-d02eee5f46b0",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "NormalizeVector2",
+                    "groups": "Gamepad",
+                    "action": "AimStick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31d16f69-e7ba-4f69-8d8f-07a1f90e4b3d",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "AimMouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

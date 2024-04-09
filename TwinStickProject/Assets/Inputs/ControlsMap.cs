@@ -35,6 +35,24 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""AimStick"",
+                    ""type"": ""Value"",
+                    ""id"": ""ac696bbe-d9ff-43f7-b2b2-471b323c0b0e"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""AimMouse"",
+                    ""type"": ""Value"",
+                    ""id"": ""bd12f6b2-90c6-4537-9158-ccd3d34047e2"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -103,6 +121,28 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0212ccc4-5770-48e9-a6fa-d02eee5f46b0"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": ""NormalizeVector2"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""AimStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31d16f69-e7ba-4f69-8d8f-07a1f90e4b3d"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""AimMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -140,6 +180,8 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
+        m_Gameplay_AimStick = m_Gameplay.FindAction("AimStick", throwIfNotFound: true);
+        m_Gameplay_AimMouse = m_Gameplay.FindAction("AimMouse", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -202,11 +244,15 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Gameplay;
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_Movement;
+    private readonly InputAction m_Gameplay_AimStick;
+    private readonly InputAction m_Gameplay_AimMouse;
     public struct GameplayActions
     {
         private @ControlsMap m_Wrapper;
         public GameplayActions(@ControlsMap wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
+        public InputAction @AimStick => m_Wrapper.m_Gameplay_AimStick;
+        public InputAction @AimMouse => m_Wrapper.m_Gameplay_AimMouse;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -219,6 +265,12 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @AimStick.started += instance.OnAimStick;
+            @AimStick.performed += instance.OnAimStick;
+            @AimStick.canceled += instance.OnAimStick;
+            @AimMouse.started += instance.OnAimMouse;
+            @AimMouse.performed += instance.OnAimMouse;
+            @AimMouse.canceled += instance.OnAimMouse;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -226,6 +278,12 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @AimStick.started -= instance.OnAimStick;
+            @AimStick.performed -= instance.OnAimStick;
+            @AimStick.canceled -= instance.OnAimStick;
+            @AimMouse.started -= instance.OnAimMouse;
+            @AimMouse.performed -= instance.OnAimMouse;
+            @AimMouse.canceled -= instance.OnAimMouse;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -264,5 +322,7 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
     public interface IGameplayActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnAimStick(InputAction.CallbackContext context);
+        void OnAimMouse(InputAction.CallbackContext context);
     }
 }
