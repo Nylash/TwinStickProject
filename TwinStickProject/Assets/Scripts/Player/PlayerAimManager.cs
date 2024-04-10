@@ -13,7 +13,9 @@ public class PlayerAimManager : MonoBehaviour
     private Vector2 stickDirection;
     private Vector2 mouseDirection;
     private Vector2 aimDirection;
-    public Vector2 AimDirection => aimDirection.normalized;
+
+    public Vector2 AimDirection { get => aimDirection;}
+
     [SerializeField] private float rotationSpeed = .075f;
 
     private void OnEnable() => controlsMap.Gameplay.Enable();
