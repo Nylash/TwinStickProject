@@ -74,3 +74,8 @@ crashlytics-build.properties
 /TwinStickProject/Library
 /TwinStickProject/UserSettings
 /TwinStickProject/Logs
+TwinStickProject/Logs/AssetImportWorker0.log
+TwinStickProject/Logs/AssetImportWorker1.log
+TwinStickProject/Logs/shadercompiler-UnityShaderCompiler.exe0.log
+TwinStickProject/Logs/shadercompiler-UnityShaderCompiler.exe1.log
+TwinStickProject/Logs/shadercompiler-UnityShaderCompiler.exe2.log
