@@ -53,6 +53,15 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""79f2576b-3e81-41f9-91d7-50c0eb8db237"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -143,6 +152,28 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
                     ""action"": ""AimMouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb277bcb-d32b-43df-acbf-047618dee3f5"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e5565d1-e1f1-4cd4-a027-959df3e8c416"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -182,6 +213,7 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
         m_Gameplay_AimStick = m_Gameplay.FindAction("AimStick", throwIfNotFound: true);
         m_Gameplay_AimMouse = m_Gameplay.FindAction("AimMouse", throwIfNotFound: true);
+        m_Gameplay_Shoot = m_Gameplay.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -246,6 +278,7 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Movement;
     private readonly InputAction m_Gameplay_AimStick;
     private readonly InputAction m_Gameplay_AimMouse;
+    private readonly InputAction m_Gameplay_Shoot;
     public struct GameplayActions
     {
         private @ControlsMap m_Wrapper;
@@ -253,6 +286,7 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
         public InputAction @AimStick => m_Wrapper.m_Gameplay_AimStick;
         public InputAction @AimMouse => m_Wrapper.m_Gameplay_AimMouse;
+        public InputAction @Shoot => m_Wrapper.m_Gameplay_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -271,6 +305,9 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
             @AimMouse.started += instance.OnAimMouse;
             @AimMouse.performed += instance.OnAimMouse;
             @AimMouse.canceled += instance.OnAimMouse;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -284,6 +321,9 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
             @AimMouse.started -= instance.OnAimMouse;
             @AimMouse.performed -= instance.OnAimMouse;
             @AimMouse.canceled -= instance.OnAimMouse;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -324,5 +364,6 @@ public partial class @ControlsMap: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnAimStick(InputAction.CallbackContext context);
         void OnAimMouse(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }

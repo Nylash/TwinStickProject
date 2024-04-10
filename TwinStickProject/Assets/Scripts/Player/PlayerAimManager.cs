@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
 
-public class PlayerAimAndShootManager : MonoBehaviour
+public class PlayerAimManager : MonoBehaviour
 {
-    public static PlayerAimAndShootManager instance;
+    public static PlayerAimManager instance;
 
     ControlsMap controlsMap;
     Animator animator;
@@ -12,8 +12,9 @@ public class PlayerAimAndShootManager : MonoBehaviour
 
     private Vector2 stickDirection;
     private Vector2 mouseDirection;
-    public Vector2 aimDirection;
-    public float rotationSpeed = .075f;
+    private Vector2 aimDirection;
+    public Vector2 AimDirection => aimDirection.normalized;
+    [SerializeField] private float rotationSpeed = .075f;
 
     private void OnEnable() => controlsMap.Gameplay.Enable();
     private void OnDisable() => controlsMap.Gameplay.Disable();
@@ -43,8 +44,8 @@ public class PlayerAimAndShootManager : MonoBehaviour
             float distance;
             if (plane.Raycast(ray, out distance))
             {
-                Vector3 target = (ray.GetPoint(distance) - transform.position).normalized;
-                aimDirection = new Vector2(target.x, target.z);
+                Vector3 target = ray.GetPoint(distance) - transform.position;
+                aimDirection = new Vector2(target.x, target.z).normalized;
             }
         }
         else

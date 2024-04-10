@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9096784929716279860}
   - component: {fileID: 4308444723229348762}
   - component: {fileID: 207750738655261280}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Graph
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,6 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1755357450128423015}
+  - {fileID: 3766032830737272218}
   m_Father: {fileID: 5248776628717895461}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9096784929716279860
@@ -108,6 +109,37 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3744271736215439102
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3766032830737272218}
+  m_Layer: 6
+  m_Name: BulletSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3766032830737272218
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3744271736215439102}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.152, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3794946113760345528}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4561164514572376921
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,10 +151,11 @@ GameObject:
   - component: {fileID: 5248776628717895461}
   - component: {fileID: 4945238307267613655}
   - component: {fileID: 3509122292628465594}
-  - component: {fileID: 3866011148284137424}
+  - component: {fileID: 1910478075359433102}
+  - component: {fileID: 9006450440799173806}
   - component: {fileID: 9116780175487457174}
   - component: {fileID: 4737220923749607663}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
---- !u!114 &3866011148284137424
+--- !u!114 &1910478075359433102
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,6 +229,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2eb0a716de87645a671de256cf26c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 0.075
+--- !u!114 &9006450440799173806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4561164514572376921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b58450d368b9b2f4e8a46be0e9b2974a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 2088548298219626249, guid: d6a394619a7b84041ae5592b0c4b70b9, type: 3}
+  bulletSpawn: {fileID: 3766032830737272218}
+  bulletLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!95 &9116780175487457174
 Animator:
   serializedVersion: 5
@@ -258,8 +309,8 @@ GameObject:
   - component: {fileID: 1755357450128423015}
   - component: {fileID: 3746599393847463550}
   - component: {fileID: 1989733575225624945}
-  m_Layer: 0
-  m_Name: Sphere
+  m_Layer: 6
+  m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

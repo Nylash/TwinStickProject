@@ -9,7 +9,7 @@ public class PlayerMovementManager : MonoBehaviour
     CharacterController controller;
 
     Vector2 movementDirection;
-    public float movementSpeed = 5;
+    [SerializeField] private float movementSpeed = 5;
 
     private void OnEnable() => controlsMap.Gameplay.Enable();
     private void OnDisable() => controlsMap.Gameplay.Disable();
@@ -23,7 +23,7 @@ public class PlayerMovementManager : MonoBehaviour
 
         controlsMap = new ControlsMap();
 
-        controlsMap.Gameplay.Movement.performed += ctx => ReadMovementInput(ctx);
+        controlsMap.Gameplay.Movement.performed += ctx => movementDirection = ctx.ReadValue<Vector2>();
         controlsMap.Gameplay.Movement.canceled += ctx => movementDirection = Vector2.zero;
 
         controller = GetComponent<CharacterController>();
@@ -32,10 +32,5 @@ public class PlayerMovementManager : MonoBehaviour
     private void Update()
     {
         controller.Move(new Vector3(movementDirection.x, 0, movementDirection.y) * movementSpeed * Time.deltaTime);
-    }
-
-    void ReadMovementInput(InputAction.CallbackContext ctx)
-    {
-        movementDirection = ctx.ReadValue<Vector2>();
     }
 }
