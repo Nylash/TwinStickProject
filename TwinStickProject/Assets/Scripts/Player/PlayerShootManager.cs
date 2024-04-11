@@ -16,8 +16,8 @@ public class PlayerShootManager : MonoBehaviour
 
     private GameObject currentBullet;
     private ProjectileBehavior currentBulletBehaviorRef;
-    private Coroutine currentShootCoroutine;
-    private bool stopCoroutine;
+    private bool stopShooting;
+    private Coroutine shootingCoroutine;
 
     private void OnEnable() => controlsMap.Gameplay.Enable();
     private void OnDisable() => controlsMap.Gameplay.Disable();
@@ -32,15 +32,21 @@ public class PlayerShootManager : MonoBehaviour
         controlsMap = new ControlsMap();
 
         controlsMap.Gameplay.Shoot.performed += ctx => StartShooting();
-        controlsMap.Gameplay.Shoot.canceled += ctx => stopCoroutine = true;
+        controlsMap.Gameplay.Shoot.canceled += ctx => StopShooting();
     }
 
     private void StartShooting()
     {
-        if (currentShootCoroutine == null)
-            currentShootCoroutine = StartCoroutine(Shoot());
+        if (!stopShooting)
+            shootingCoroutine = StartCoroutine(Shoot());
         else
-            stopCoroutine = false;
+            stopShooting = false;
+    }
+
+    private void StopShooting()
+    {
+        if (shootingCoroutine != null)
+            stopShooting = true;
     }
 
     private IEnumerator Shoot()
@@ -59,12 +65,15 @@ public class PlayerShootManager : MonoBehaviour
                     yield return new WaitForSeconds(PlayerWeaponsManager.instance.MainWeapon.timeBetweenProjectiles);
             }
             yield return new WaitForSeconds(PlayerWeaponsManager.instance.MainWeapon.fireRate);
-            if (stopCoroutine)
+            if (stopShooting)
             {
-                currentShootCoroutine = null;
-                StopCoroutine(Shoot());
+                stopShooting = false;
+                shootingCoroutine = null;
                 yield break;
             }
         }
+        stopShooting = false;
+        shootingCoroutine = null;
+        yield break;
     }
 }
