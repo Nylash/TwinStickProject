@@ -39,13 +39,13 @@ public class PlayerWeaponsManager : MonoBehaviour
     {
         if (!mainWeaponReloading)
         {
-            if(mainWeaponAmmunition - mainWeapon.projectilesByShot >= 0)
+            if(mainWeaponAmmunition - 1 >= 0)
                 return true;
         }
         return false;
     }
 
-    public void MainWeapondConsumeAmmunition()
+    public void MainWeaponConsumeAmmunition()
     {
         mainWeaponAmmunition--;
         if (mainWeaponAmmunition < 0)

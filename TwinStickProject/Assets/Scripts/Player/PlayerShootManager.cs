@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerShootManager : MonoBehaviour
 {
@@ -53,12 +54,18 @@ public class PlayerShootManager : MonoBehaviour
     {
         while (PlayerWeaponsManager.instance.CanShoot()) 
         {
+            PlayerWeaponsManager.instance.MainWeaponConsumeAmmunition();
             for (int i = 0; i < PlayerWeaponsManager.instance.MainWeapon.projectilesByShot; i++)
             {
-                PlayerWeaponsManager.instance.MainWeapondConsumeAmmunition();
                 currentBullet = Instantiate(bullet, bulletSpawn.position, Quaternion.identity);
                 currentBulletBehaviorRef = currentBullet.GetComponent<ProjectileBehavior>();
-                currentBulletBehaviorRef.direction = new Vector3(PlayerAimManager.instance.AimDirection.x, 0, PlayerAimManager.instance.AimDirection.y);
+                float randomAngle = Random.Range(-PlayerWeaponsManager.instance.MainWeapon.inaccuracyAngle, PlayerWeaponsManager.instance.MainWeapon.inaccuracyAngle);
+
+                Vector3 shootDirection = Quaternion.AngleAxis(randomAngle, Vector3.up) 
+                    * new Vector3(PlayerAimManager.instance.AimDirection.x, 0, PlayerAimManager.instance.AimDirection.y);
+                currentBulletBehaviorRef.direction = shootDirection.normalized;
+                currentBulletBehaviorRef.speed = PlayerWeaponsManager.instance.MainWeapon.bulletSpeed;
+                currentBulletBehaviorRef.range = PlayerWeaponsManager.instance.MainWeapon.range;
                 currentBullet.layer = (int)Mathf.Log(bulletLayer.value, 2);//To get real value from bitMask
                 currentBullet.SetActive(true);
                 if (PlayerWeaponsManager.instance.MainWeapon.projectilesByShot > 1)

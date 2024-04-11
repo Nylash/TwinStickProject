@@ -15,11 +15,11 @@ MonoBehaviour:
   weapon: 0
   fireRate: 0.01
   damage: 0
-  bulletSpeed: 15
+  bulletSpeed: 20
   ammunitionMax: 30
   projectilesByShot: 1
   timeBetweenProjectiles: 0
   range: 50
   projectile: {fileID: 2088548298219626249, guid: d6a394619a7b84041ae5592b0c4b70b9, type: 3}
-  inaccuracyAngle: 0
+  inaccuracyAngle: 2
   reloadTime: 1.5
