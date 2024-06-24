@@ -1,14 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
-public class PlayerShootManager : MonoBehaviour
+public class PlayerShootManager : Singleton<PlayerShootManager>
 {
-    public static PlayerShootManager instance;
-
     ControlsMap controlsMap;
 
     [SerializeField] private GameObject bullet;
@@ -25,11 +19,6 @@ public class PlayerShootManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
-
         controlsMap = new ControlsMap();
 
         controlsMap.Gameplay.Shoot.performed += ctx => StartShooting();
@@ -52,26 +41,26 @@ public class PlayerShootManager : MonoBehaviour
 
     private IEnumerator Shoot()
     {
-        while (PlayerWeaponsManager.instance.CanShoot()) 
+        while (PlayerWeaponsManager.Instance.CanShoot()) 
         {
-            PlayerWeaponsManager.instance.MainWeaponConsumeAmmunition();
-            for (int i = 0; i < PlayerWeaponsManager.instance.MainWeapon.projectilesByShot; i++)
+            PlayerWeaponsManager.Instance.MainWeaponConsumeAmmunition();
+            for (int i = 0; i < PlayerWeaponsManager.Instance.MainWeapon.projectilesByShot; i++)
             {
                 currentBullet = Instantiate(bullet, bulletSpawn.position, Quaternion.identity);
                 currentBulletBehaviorRef = currentBullet.GetComponent<ProjectileBehavior>();
-                float randomAngle = Random.Range(-PlayerWeaponsManager.instance.MainWeapon.inaccuracyAngle, PlayerWeaponsManager.instance.MainWeapon.inaccuracyAngle);
+                float randomAngle = Random.Range(-PlayerWeaponsManager.Instance.MainWeapon.inaccuracyAngle, PlayerWeaponsManager.Instance.MainWeapon.inaccuracyAngle);
 
                 Vector3 shootDirection = Quaternion.AngleAxis(randomAngle, Vector3.up) 
-                    * new Vector3(PlayerAimManager.instance.AimDirection.x, 0, PlayerAimManager.instance.AimDirection.y);
+                    * new Vector3(PlayerAimManager.Instance.AimDirection.x, 0, PlayerAimManager.Instance.AimDirection.y);
                 currentBulletBehaviorRef.direction = shootDirection.normalized;
-                currentBulletBehaviorRef.speed = PlayerWeaponsManager.instance.MainWeapon.bulletSpeed;
-                currentBulletBehaviorRef.range = PlayerWeaponsManager.instance.MainWeapon.range;
+                currentBulletBehaviorRef.speed = PlayerWeaponsManager.Instance.MainWeapon.bulletSpeed;
+                currentBulletBehaviorRef.range = PlayerWeaponsManager.Instance.MainWeapon.range;
                 currentBullet.layer = (int)Mathf.Log(bulletLayer.value, 2);//To get real value from bitMask
                 currentBullet.SetActive(true);
-                if (PlayerWeaponsManager.instance.MainWeapon.projectilesByShot > 1)
-                    yield return new WaitForSeconds(PlayerWeaponsManager.instance.MainWeapon.timeBetweenProjectiles);
+                if (PlayerWeaponsManager.Instance.MainWeapon.projectilesByShot > 1)
+                    yield return new WaitForSeconds(PlayerWeaponsManager.Instance.MainWeapon.timeBetweenProjectiles);
             }
-            yield return new WaitForSeconds(PlayerWeaponsManager.instance.MainWeapon.fireRate);
+            yield return new WaitForSeconds(PlayerWeaponsManager.Instance.MainWeapon.fireRate);
             if (stopShooting)
             {
                 stopShooting = false;

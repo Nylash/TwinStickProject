@@ -1,11 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XR;
 
-public class PlayerAimManager : MonoBehaviour
+public class PlayerAimManager : Singleton<PlayerAimManager>
 {
-    public static PlayerAimManager instance;
-
     ControlsMap controlsMap;
     Animator animator;
     PlayerInput playerInput;
@@ -23,11 +20,6 @@ public class PlayerAimManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
-
         controlsMap = new ControlsMap();
 
         controlsMap.Gameplay.AimStick.performed += ctx => stickDirection = ctx.ReadValue<Vector2>();

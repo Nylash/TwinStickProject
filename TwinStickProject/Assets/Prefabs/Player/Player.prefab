@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0199e40203c8a7443974972ccdde2c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _persistentSingleton: 0
   movementSpeed: 5
 --- !u!114 &1910478075359433102
 MonoBehaviour:
@@ -230,6 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2eb0a716de87645a671de256cf26c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _persistentSingleton: 0
   rotationSpeed: 0.075
 --- !u!114 &9006450440799173806
 MonoBehaviour:
@@ -243,6 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b58450d368b9b2f4e8a46be0e9b2974a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _persistentSingleton: 0
   bullet: {fileID: 2088548298219626249, guid: d6a394619a7b84041ae5592b0c4b70b9, type: 3}
   bulletSpawn: {fileID: 3766032830737272218}
   bulletLayer:
@@ -260,6 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762c4817d27eaaf4ba380a7f8713b1bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _persistentSingleton: 0
   mainWeapon: {fileID: 11400000, guid: bf220e21bbbe0fa44ba374f8d016133b, type: 2}
 --- !u!95 &9116780175487457174
 Animator:
@@ -339,7 +343,7 @@ Transform:
   m_GameObject: {fileID: 6184087456358747209}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.379, y: 0.8529999, z: 0}
+  m_LocalPosition: {x: 0.4, y: 0.5, z: 0}
   m_LocalScale: {x: 0.5, y: 0.1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []

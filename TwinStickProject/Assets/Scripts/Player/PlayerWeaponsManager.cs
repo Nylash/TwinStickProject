@@ -1,11 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWeaponsManager : MonoBehaviour
+public class PlayerWeaponsManager : Singleton<PlayerWeaponsManager>
 {
-    public static PlayerWeaponsManager instance;
-
     ControlsMap controlsMap;
 
     private bool mainWeaponReloading;
@@ -20,11 +17,6 @@ public class PlayerWeaponsManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
-
         controlsMap = new ControlsMap();
 
         controlsMap.Gameplay.Reload.performed += ctx => StartCoroutine(Reload());

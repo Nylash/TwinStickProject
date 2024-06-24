@@ -1,10 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovementManager : MonoBehaviour
+public class PlayerMovementManager : Singleton<PlayerMovementManager>
 {
-    public static PlayerMovementManager instance;
-
     ControlsMap controlsMap;
     CharacterController controller;
 
@@ -16,11 +14,6 @@ public class PlayerMovementManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
-
         controlsMap = new ControlsMap();
 
         controlsMap.Gameplay.Movement.performed += ctx => movementDirection = ctx.ReadValue<Vector2>();

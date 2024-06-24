@@ -72,18 +72,8 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 /TwinStickProject/Library
+/TwinStickProject/Library
 /TwinStickProject/UserSettings
 /TwinStickProject/Logs
-TwinStickProject/Logs/AssetImportWorker0.log
-TwinStickProject/Logs/AssetImportWorker1.log
-TwinStickProject/Logs/shadercompiler-UnityShaderCompiler.exe0.log
-TwinStickProject/Logs/shadercompiler-UnityShaderCompiler.exe1.log
-TwinStickProject/Logs/shadercompiler-UnityShaderCompiler.exe2.log
-/TwinStickProject/Logs/AssetImportWorker0.log
-/TwinStickProject/Logs/AssetImportWorker1.log
-/TwinStickProject/Logs/shadercompiler-AssetImportWorker0.log
-/TwinStickProject/Logs/shadercompiler-UnityShaderCompiler.exe0.log
-*.backup
-/TwinStickProject/Temp/FSTimeGet-fc4eda6916d738b45bc61671b2a3c9aa
-/TwinStickProject/Temp/UnityLockfile
-/TwinStickProject/Temp/workerlic
+/TwinStickProject/Temp
+/TwinStickProject/obj
